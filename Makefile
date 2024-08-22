@@ -5,7 +5,7 @@ NASM := nasm -f elf64
 BUILD_DIR := build
 SRC_DIR := src
 
-SRC := $(wildcard $(SRC_DIR)/*s)
+SRC := $(wildcard $(SRC_DIR)/*.s)
 OBJS := $(patsubst $(SRC_DIR)/%.s, $(BUILD_DIR)/%.o, $(SRC))
 BOOT_IMAGE := $(BUILD_DIR)/boot_image
 
@@ -17,8 +17,8 @@ boot: $(BOOT_IMAGE)
 $(BOOT_IMAGE):$(BUILD_DIR)/linked.o
 	objcopy -O binary $< $@
 
-$(BUILD_DIR/linked.o: $(OBJS)
-	ld -T linkder.ld -o $@ $^
+$(BUILD_DIR)/linked.o: $(OBJS)
+	ld -T linker.ld -o $@ $^
 
 $(BUILD_DIR)/%.o:$(SRC_DIR)/%.s
 	@mkdir -p $(dir $@)
