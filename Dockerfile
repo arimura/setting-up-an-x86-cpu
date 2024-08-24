@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Update the package list and install NASM and ld (binutils)
 RUN apt-get update && \
-    apt-get install -y nasm binutils && \
+    apt-get install -y nasm binutils make && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
