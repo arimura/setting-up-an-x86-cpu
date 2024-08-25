@@ -10,3 +10,6 @@ install:
 
 attach:
 	docker run -it --rm -v $(DIR):/shared $(CONTAINER_NAME)
+
+boot: 
+	qemu-system-x86_64 -no-reboot -drive file=build/boot_image,format=raw,index=0,media=disk

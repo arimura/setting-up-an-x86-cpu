@@ -11,9 +11,6 @@ BOOT_IMAGE := $(BUILD_DIR)/boot_image
 
 all:$(BOOT_IMAGE)
 
-boot: $(BOOT_IMAGE)
-	qemu-system-x86_64 -no-reboot -drive file=$<,format=raw,index=0,media=disk
-
 $(BOOT_IMAGE):$(BUILD_DIR)/linked.o
 	objcopy -O binary $< $@
 
