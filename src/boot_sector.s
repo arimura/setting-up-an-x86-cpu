@@ -13,6 +13,9 @@ __start:
     int 0x13
     jc error_reading_disk
 
+ignore_disk_read_error:
+    SND_STAGE_ADDR equ (BOOT_LOAD_ADDR + SECTOR_SIZE)
+    jmp 0:SND_STAGE_ADDR
 
 end:
     hlt
