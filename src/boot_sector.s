@@ -7,6 +7,13 @@ __start:
     mov bx, hello_msg
     call print_string
 
+    mov si, disk_address_packet
+    mov ah, 0x42
+    mov dl, 0x80
+    int 0x13
+    jc error_reading_disk
+
+
 end:
     hlt
     jmp end
