@@ -5,6 +5,9 @@
     mov bx, stage2_msg
     call print_string
 
+    cli
+    lgdt [gdt32_pseudo_descriptor]
+
 end:
     hlt
     jmp end
