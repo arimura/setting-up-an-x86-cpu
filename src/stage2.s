@@ -16,12 +16,15 @@
 
     [bits 32]
 start_prot_mode:
-    mox ax, DATA_SEG32
+    mov ax, DATA_SEG32
     mov ds, ax
     mov ss, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
+
+    mov ebx, prot_mode_msg
+    call print_string32
 
 end:
     hlt
@@ -44,7 +47,32 @@ end:
     print_string_return:
         popa
         ret
-    
+
+print_string32:
+    pusha
+
+    VGA_BUF equ 0xb8000
+    WB_COLOR equ 0xf
+
+    mov edx, VGA_BUF
+
+print_string32_loop:
+    cmp byte [ebx], 0
+    je print_string32_return
+
+    mov al, [ebx]
+    mov ah, WB_COLOR
+    mov [edx], ax
+
+    add ebx, 1
+    add ebx, 2
+    jmp print_string32_loop
+
+print_string32_return:
+    popa
+    ret
+
 stage2_msg: db "Hello from stage2", 13, 10, 0
+prot_mode_msg: db "Hello from protected mode", 0
 
 %include "include/gdt32.s"
