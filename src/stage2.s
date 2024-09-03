@@ -8,6 +8,21 @@
     cli
     lgdt [gdt32_pseudo_descriptor]
 
+    mov edx, cr0
+    or eax, 1
+    mov cr0, eax
+
+    jmp CODE_SEG32:start_prot_mode
+
+    [bits 32]
+start_prot_mode:
+    mox ax, DATA_SEG32
+    mov ds, ax
+    mov ss, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+
 end:
     hlt
     jmp end
@@ -31,3 +46,5 @@ end:
         ret
     
 stage2_msg: db "Hello from stage2", 13, 10, 0
+
+%include "include/gdt32.s"
