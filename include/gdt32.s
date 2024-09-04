@@ -10,6 +10,7 @@ gdt32_code_segment:
     db 0x00
     db 10011010b
     db 11001111b
+    db 0x00
 
 gdt32_data_segment:
     dw 0xffff
