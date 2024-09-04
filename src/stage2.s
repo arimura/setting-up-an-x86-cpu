@@ -8,7 +8,7 @@
     cli
     lgdt [gdt32_pseudo_descriptor]
 
-    mov edx, cr0
+    mov eax, cr0
     or eax, 1
     mov cr0, eax
 
