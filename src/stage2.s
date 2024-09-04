@@ -14,6 +14,24 @@
 
     jmp CODE_SEG32:start_prot_mode
 
+print_string:
+    pusha
+    mov ah, 0x0e
+
+print_string_loop:
+    cmp byte [bx], 0
+    je print_string_return
+
+    mov al, [bx]
+    int 0x10
+
+    inc bx
+    jmp print_string_loop
+
+print_string_return:
+    popa
+    ret
+
     [bits 32]
 start_prot_mode:
     mov ax, DATA_SEG32
@@ -30,23 +48,6 @@ end:
     hlt
     jmp end
 
-    print_string:
-        pusha
-        mov ah, 0x0e
-
-    print_string_loop:
-        cmp byte [bx], 0
-        je print_string_return
-
-        mov al, [bx]
-        int 0x10
-
-        inc bx
-        jmp print_string_loop
-
-    print_string_return:
-        popa
-        ret
 
 print_string32:
     pusha
