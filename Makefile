@@ -14,3 +14,6 @@ attach:
 boot: 
 	docker run --platform linux/amd64 -it --rm -v $(DIR):/shared $(CONTAINER_NAME) make -f docker.mk 
 	qemu-system-x86_64 -no-reboot -drive file=build/boot_image,format=raw,index=0,media=disk
+
+clean:
+	rm -rf build
